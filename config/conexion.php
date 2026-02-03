@@ -3,7 +3,8 @@ class Conexion
 {
     public function conectar()
     {
-        $servername = "DESKTOP-3V9E2DO\\HermittPc";
+        //$servername = "DESKTOP-3V9E2DO\\HermittPc";   // laptop
+        $servername = "DESKTOP-4KB9LS0\\HermittPC";     // pc de escritorio
         $database = "Uni_Auditoria";
 
         try {

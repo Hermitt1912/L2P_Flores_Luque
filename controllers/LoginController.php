@@ -1,31 +1,33 @@
 <?php
 require_once __DIR__ . '/../models/LoginModelo.php';
 
-class LoginController {
-    public function loginUser() {
+class LoginController
+{
+    public function loginUser()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $user = $_POST['username'] ?? '';
-            $pass = $_POST['password'] ?? '';
+            $user = trim($_POST['user'] ?? '');
+            $pass = trim($_POST['pass'] ?? '');
 
             $loginModel = new LoginModelo();
-            $result = $loginModel->LoginAuth($user, $pass);  // cargar usuario y contraseña
+            $res = $loginModel->LoginAuth($user, $pass);  // cargar usuario y contraseña
 
-            if ($result) {
+            if ($res) {
                 session_start();
-                $_SESSION['user'] = $result;
-                header('Location: /index.php?accion=home');
+                $_SESSION['user'] = $res['username'];
+                header("Location: /index.php?accion=home");
                 exit();
             } else {
-                $error =  "Credenciales inválidas.";
+                $error = "Credenciales incorrectas.";
                 $this->showForm($error);
             }
-        }
-        else{
+        } else {
             $this->showForm();
         }
     }
 
-    public function logoutUser() {
+    public function logoutUser()
+    {
         session_start();
         session_abort();
         session_destroy();
@@ -34,9 +36,8 @@ class LoginController {
         exit;
     }
 
-    public function showForm($err=''){
+    public function showForm($error = '')
+    {
         require_once __DIR__ . '/../view/login.php';
-        
     }
 }
-?>

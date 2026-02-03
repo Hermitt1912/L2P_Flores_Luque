@@ -1,9 +1,11 @@
 <?php
 
-require_once 'config/conexion.php'; 
+require_once 'config/conexion.php';
 
-class LoginModelo {
-    public function LoginAuth($user,$pass){ 
+class LoginModelo
+{
+    public function LoginAuth($user, $pass)
+    {
         $conexion = new Conexion();
         $con = $conexion->conectar();
 
@@ -25,9 +27,8 @@ class LoginModelo {
 
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $error) {
-            die("Error en LoginModelo -> LoginAuth: ". $error->getMessage());
+            die("Error en LoginModelo -> LoginAuth: " . $error->getMessage());
+            return false;
         }
     }
-
 }
-?>
